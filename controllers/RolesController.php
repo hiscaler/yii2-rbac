@@ -4,24 +4,27 @@ namespace yadjet\rbac\controllers;
 
 use Yii;
 use yii\base\Exception;
-use yii\helpers\Url;
+use yii\filters\VerbFilter;
 use yii\web\Response;
 
 class RolesController extends Controller
 {
 
-//    public function behaviors()
-//    {
-//        return [
-//            'verbs' => [
-//                'class' => VerbFilter::className(),
-//                'actions' => [
-//                    'create' => ['post'],
-//                    'delete' => ['post'],
-//                ],
-//            ],
-//        ];
-//    }
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'add-child' => ['post'],
+                    'create' => ['post'],
+                    'delete' => ['post'],
+                    'remove-child' => ['post'],
+                    'remove-children' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex()
     {
@@ -58,7 +61,6 @@ class RolesController extends Controller
                 $responseBody['error']['message'] = $errorMessage;
             } else {
                 $role = (array) $role;
-                $role['deleteUrl'] = Url::toRoute(['roles/delete', 'name' => $role['name']]);
                 $responseBody['data'] = $role;
             }
 
@@ -69,12 +71,16 @@ class RolesController extends Controller
         }
     }
 
+    /**
+     * 删除角色
+     * @param string $name
+     * @return Response
+     */
     public function actionDelete($name)
     {
         try {
-            $name = trim($name);
             $auth = Yii::$app->getAuthManager();
-            $role = $auth->getRole($name);
+            $role = $auth->getRole(trim($name));
             $auth->remove($role);
             $responseBody = [
                 'success' => true,

@@ -4,7 +4,6 @@ namespace yadjet\rbac\controllers;
 
 use Exception;
 use Yii;
-use yii\helpers\Url;
 use yii\rest\Controller;
 use yii\web\Response;
 
@@ -62,7 +61,6 @@ class PermissionsController extends Controller
                 $responseBody['error']['message'] = $errorMessage;
             } else {
                 $permission = (array) $permission;
-                $permission['deleteUrl'] = Url::toRoute(['permissions/delete', 'name' => $permission['name']]);
                 $responseBody['data'] = $permission;
             }
 

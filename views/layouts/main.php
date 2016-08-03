@@ -31,14 +31,13 @@ $asset = yadjet\rbac\RbacAsset::register($this);
         <?php $this->endBody() ?>
         <script type="text/javascript">
             yadjet.rbac.urls = {
-                auths: '<?= \yii\helpers\Url::toRoute(['users/auths', 'id' => 0]) ?>',
                 assign: '<?= \yii\helpers\Url::toRoute(['users/assign']) ?>',
                 revoke: '<?= \yii\helpers\Url::toRoute(['users/revoke']) ?>',
                 users: {
                     list: '<?= \yii\helpers\Url::toRoute(['users/index']) ?>'
                 },
                 user: {
-                    roles: '<?= \yii\helpers\Url::toRoute(['users/roles', 'id' => 0]) ?>',
+                    roles: '<?= \yii\helpers\Url::toRoute(['users/roles', 'id' => '_id']) ?>',
                     permissions: '<?= \yii\helpers\Url::toRoute(['users/permissions']) ?>'
                 },
                 roles: {

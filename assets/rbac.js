@@ -39,7 +39,6 @@ function clone(myObj) {
 yadjet.rbac = yadjet.rbac || {};
 yadjet.rbac.debug = yadjet.rbac.debug || true;
 yadjet.rbac.urls = yadjet.rbac.urls || {
-        auths: undefined,
         assign: undefined,
         revoke: undefined,
         users: {
@@ -76,11 +75,6 @@ var vm = new Vue({
             userId: 0,
             role: undefined
         },
-        ownAuth: {
-            userId: 0,
-            roles: {},
-            permissions: {}
-        },
         users: {},
         user: {
             roles: {},
@@ -105,16 +99,9 @@ var vm = new Vue({
             return !0
         },
         userRolesByUserId: function (userId) {
-            Vue.http.get(yadjet.rbac.urls.user.roles.replace('0', userId)).then((res) => {
+            Vue.http.get(yadjet.rbac.urls.user.roles.replace('_id', userId)).then((res) => {
                 this.user.roles = res.data;
                 this.activeObject.userId = userId;
-            });
-        },
-        userOwnRole: function (userId) {
-            Vue.http.get(yadjet.rbac.urls.auths.replace('0', userId)).then((res) => {
-                vm.ownAuth.userId = res.data.userId;
-                vm.ownAuth.roles = res.data.roles;
-                vm.ownAuth.permissions = res.data.permissions;
             });
         },
         // 给用户授权
@@ -223,7 +210,7 @@ var vm = new Vue({
 
             return roles;
         },
-        // 角色对应的权限
+        // 当前操作角色关联的权限
         rolePermissions: function () {
             var permissions = [], permission;
             for (var i in this.permissions) {
@@ -287,6 +274,8 @@ $(function () {
                 } else {
                     alert(response.error.message);
                 }
+            }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('ERROR ' + XMLHttpRequest.status + ' 错误信息： ' + XMLHttpRequest.responseText);
             }
         });
 
@@ -305,6 +294,8 @@ $(function () {
                 } else {
                     alert(response.error.message);
                 }
+            }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('ERROR ' + XMLHttpRequest.status + ' 错误信息： ' + XMLHttpRequest.responseText);
             }
         });
 

@@ -15,17 +15,15 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>序号</th>
+                        <th>ID</th>
                         <th>姓名</th>
-                        <th>昵称</th>
                         <th class="actions last"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="item in users" v-bind:class="{'selected': item.id == activeObject.userId}">
                         <td class="serial-number">{{ item.id }}</td>
-                        <td class="username">{{ item.username }}</td>
-                        <td>{{ item.nickname }}</td>
+                        <td>{{ item.username }}</td>
                         <td class="btn-1">
                             <button v-on:click="userRolesByUserId(item.id)">Roles</button>
                         </td>
@@ -61,19 +59,17 @@
         </div>
 
         <div id="rbac-roles" class="panel" style="display: none;">
-            <h1>
-                <button @click="toggleFormVisible('role')">+</button>
-            </h1>
+
+            <button @click="toggleFormVisible('role')">{{ formVisible.role ? 'Hide Form' : 'Show Form' }}</button>
+
             <div id="rbac-role-form" v-show="formVisible.role">
                 <form action="<?= \yii\helpers\Url::toRoute(['roles/create']) ?>">
                     <p>
-                        Name: <input type="text" id="name" name="name" value="" placeholder="Name"/>
+                        Name: <input type="text" id="name" name="name" value="" placeholder="Role name"/>
+                        Description: <input type="text" id="description" name="description" value="" placeholder="Description"/>
+                        <input id="rbac-sumbit-role" type="submit" value="Save"/>
                     </p>
 
-                    <p>
-                        Description:
-                        <input type="text" id="description" name="description" value="" placeholder="Description"/></p>
-                    <input id="rbac-sumbit-role" type="submit" value="Save"/>
                 </form>
             </div>
 
@@ -132,19 +128,16 @@
 
 
         <div id="rbac-permissions" class="panel" style="display: none;">
-            <h1>
-                <button @click="toggleFormVisible('permission')">+</button>
-            </h1>
+
+            <button @click="toggleFormVisible('permission')">{{ formVisible.permission ? 'Hide Form' : 'Show Form' }}</button>
+
             <div id="rbac-persmission-form" v-show="formVisible.permission">
                 <form action="<?= \yii\helpers\Url::toRoute(['permission/create']) ?>">
                     <p>
-                        Name: <input type="text" id="name" name="name" value="" placeholder="Name"/>
-                    </p>
-
-                    <p>
+                        Name: <input type="text" id="name" name="name" value="" placeholder="Permission name"/>                  
                         Description: <input type="text" id="description" name="description" value="" placeholder="Description"/>
+                        <input id="rbac-sumbit-permission" type="submit" value="Save"/>
                     </p>
-                    <input id="rbac-sumbit-permission" type="submit" value="Save"/>
                 </form>
             </div>
 
