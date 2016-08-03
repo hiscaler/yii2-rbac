@@ -9,6 +9,10 @@ use yii\web\Response;
 class UsersController extends Controller
 {
 
+    /**
+     * 获取所有用户
+     * @return Response
+     */
     public function actionIndex()
     {
         $items = Yii::$app->getDb()->createCommand('SELECT * FROM {{%user}}')->queryAll();
@@ -19,35 +23,37 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * 用户分配的角色
+     * @param integer|mixed $id 用户 id
+     * @return Response
+     */
     public function actionRoles($id = null)
     {
-        $items = [];
         if (!$id) {
-            $user = Yii::$app->getUser();
-            $id = $user->getIsGuest() ? 0 : $user->getId();
+            $id = Yii::$app->getUser()->getId();
         }
-        $auth = Yii::$app->getAuthManager();
-        $items = array_values($auth->getRolesByUser($id));
 
         return new Response([
             'format' => Response::FORMAT_JSON,
-            'data' => $items,
+            'data' => array_values(Yii::$app->getAuthManager()->getRolesByUser($id)),
         ]);
     }
 
+    /**
+     * 用户分配的权限
+     * @param integer|mixed $id
+     * @return Response
+     */
     public function actionPermissions($id = null)
     {
-        $items = [];
         if (!$id) {
-            $user = Yii::$app->getUser();
-            $id = $user->getIsGuest() ? 0 : $user->getId();
+            $id = Yii::$app->getUser()->getId();
         }
-        $auth = Yii::$app->getAuthManager();
-        $items = $auth->getPermissionsByUser($id);
 
         return new Response([
             'format' => Response::FORMAT_JSON,
-            'data' => $items,
+            'data' => Yii::$app->getAuthManager()->getPermissionsByUser($id),
         ]);
     }
 
@@ -88,6 +94,10 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * 分配用户角色
+     * @return Response
+     */
     public function actionAssign()
     {
         $success = true;
@@ -102,7 +112,7 @@ class UsersController extends Controller
             $auth->assign($auth->getRole($roleName), $userId);
         } else {
             $success = false;
-            $errorMessage = '参数错误。';
+            $errorMessage = 'Parameters error.';
         }
 
         $responseBody = ['success' => $success];
@@ -116,6 +126,10 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * 撤销用户角色
+     * @return Response
+     */
     public function actionRevoke()
     {
         $success = true;
@@ -130,7 +144,7 @@ class UsersController extends Controller
             $auth->revoke($auth->getRole($roleName), $userId);
         } else {
             $success = false;
-            $errorMessage = '参数错误。';
+            $errorMessage = 'Parameters error.';
         }
 
         $responseBody = ['success' => $success];

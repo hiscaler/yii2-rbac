@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in users" v-bind:class="{'selected': item.id == userId}">
+                    <tr v-for="item in users" v-bind:class="{'selected': item.id == activeObject.userId}">
                         <td>{{ item.id }}</td>
                         <td>{{ item.username }}</td>
                         <td>{{ item.nickname }}</td>
@@ -90,14 +90,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in roles">
+                    <tr v-for="item in roles" v-bind:class="{'selected': item.name == activeObject.role}">
                         <td>{{ item.name }}</td>
                         <td>{{ item.description }}</td>
                         <td>{{ item.rule_name }}</td>
                         <td>{{ item.data }}</td>
                         <td>
-                            <button data-confirm="删除该角色？" v-on:click="deleteRole(item.deleteUrl, $index, $event)">X</button>
-                            <button v-on:click="permissionsByRole(item.name)">Permissions</button>
+                            <button data-confirm="删除该角色？" v-on:click="deleteRole(item.name, $index, $event)">X</button>
+                            <button v-on:click="permissionsByRole(item.name, $index)">Permissions</button>
                         </td>
                     </tr>
                 </tbody>
@@ -121,8 +121,8 @@
                             <td>{{ item.rule_name }}</td>
                             <td>{{ item.data }}</td>
                             <td>
-                                <button v-show="item.active" data-confirm="删除该权限？" v-on:click="deletePermission(item.deleteUrl, $index, $event)">X</button>
-                                <button v-show="!item.active" v-on:click="addChild(item.name, $index, $event)">+</button>
+                                <button v-show="!item.active" v-on:click="roleAddChild(item.name, $index, $event)">+</button>
+                                <button v-show="item.active" data-confirm="删除该权限？" v-on:click="roleRemoveChild(item.name, $index, $event)">X</button>
                             </td>
                         </tr>
                     </tbody>

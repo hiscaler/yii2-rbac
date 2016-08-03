@@ -99,6 +99,11 @@ class RolesController extends Controller
         ]);
     }
 
+    /**
+     * 获取角色关联的权限
+     * @param string $roleName
+     * @return Response
+     */
     public function actionPermissionsByRole($roleName)
     {
         $auth = Yii::$app->getAuthManager();
@@ -110,26 +115,47 @@ class RolesController extends Controller
         ]);
     }
 
-    public function actionAddChild()
+    /**
+     * 添加角色和权限关联数据
+     * @param string $roleName
+     * @param string $permissionName
+     * @return Response
+     */
+    public function actionAddChild($roleName, $permissionName)
     {
-        $request = Yii::$app->getRequest();
-        $rawBody = json_decode($request->getRawBody(), true);
-        if ($rawBody !== null && isset($rawBody['roleName']) && isset($rawBody['permissionName'])) {
-            try {
-                $roleName = $rawBody['roleName'];
-                $permissionName = $rawBody['permissionName'];
-                $role = $this->auth->getRole($roleName);
-                $permissionName = $this->auth->getPermission($permissionName);
-                $this->auth->addChild($role, $permissionName);
-                $responseBody = [
-                    'success' => true,
-                ];
-            } catch (Exception $ex) {
-                $responseBody = [
-                    'success' => false,
-                    'error' => ['message' => $ex->getMessage()],
-                ];
-            }
+        try {
+            $role = $this->auth->getRole($roleName);
+            $permission = $this->auth->getPermission($permissionName);
+            $this->auth->addChild($role, $permission);
+            $responseBody = [
+                'success' => true,
+            ];
+        } catch (Exception $ex) {
+            $responseBody = [
+                'success' => false,
+                'error' => ['message' => $ex->getMessage()],
+            ];
+        }
+
+        return new Response([
+            'format' => Response::FORMAT_JSON,
+            'data' => $responseBody,
+        ]);
+    }
+
+    public function actionRemoveChild($roleName, $permissionName)
+    {
+        try {
+            $auth = Yii::$app->getAuthManager();
+            $auth->removeChild($roleName, $permissionName);
+            $responseBody = ['success' => true];
+        } catch (Exception $ex) {
+            $responseBody = [
+                'success' => false,
+                'error' => [
+                    'message' => $ex->getMessage(),
+                ]
+            ];
         }
 
         return new Response([

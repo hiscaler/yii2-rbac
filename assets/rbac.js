@@ -49,22 +49,21 @@ yadjet.rbac.urls = yadjet.rbac.urls || {
             roles: undefined,
             permissions: undefined
         },
-        role: {
-            permissionsByRole: undefined,
-            addChild: undefined
-        },
         roles: {
-            list: undefined,
-            create: undefined,
-            read: undefined,
-            update: undefined,
-            delete: undefined
+            list: undefined, // 角色列表
+            create: undefined, // 添加角色
+            read: undefined, // 查看角色
+            update: undefined, // 更新角色
+            'delete': undefined, // 删除角色
+            permissions: undefined, // 角色对应的权限
+            addChild: undefined, // 角色关联权限操作
+            removeChild: undefined // 删除角色中的某个关联权限
         },
         permissions: {
             create: undefined,
             read: undefined,
             update: undefined,
-            delete: undefined
+            'delete': undefined
         },
         scanController: undefined
     };
@@ -113,13 +112,6 @@ var vm = new Vue({
                 this.activeObject.userId = userId;
             });
         },
-        // 根据角色获取关联的所有权限
-        permissionsByRole: function (roleName, index) {
-            Vue.http.get(yadjet.rbac.urls.role.permissionsByRole.replace(0, roleName)).then((res) => {
-                this.activeObject.role = roleName;
-                this.role.permissions = res.data;
-            });
-        },
         userOwnRole: function (userId) {
             Vue.http.get(yadjet.rbac.urls.auths.replace('0', userId)).then((res) => {
                 vm.ownAuth.userId = res.data.userId;
@@ -147,15 +139,34 @@ var vm = new Vue({
             });
         },
         // 删除角色
-        deleteRole: function (url, index, event) {
-            Vue.http.post(url).then((res) => {
+        deleteRole: function (roleName, index, event) {
+            Vue.http.post(yadjet.rbac.urls.roles.delete.replace('_name', roleName)).then((res) => {
                 this.roles.splice(index, 1);
             });
             event.preventDefault();
         },
+        // 根据角色获取关联的所有权限
+        permissionsByRole: function (roleName, index) {
+            Vue.http.get(yadjet.rbac.urls.roles.permissions.replace('_roleName', roleName)).then((res) => {
+                this.activeObject.role = roleName;
+                this.role.permissions = res.data;
+            });
+        },
         // 分配权限给角色
-        addChild: function (permissionName, index, event) {
-            Vue.http.post(yadjet.rbac.urls.role.addChild, {roleName: this.activeObject.role, permissionName: permissionName}).then((res) => {
+        roleAddChild: function (permissionName, index, event) {
+            Vue.http.post(yadjet.rbac.urls.roles.addChild.replace('_roleName', vm.activeObject.role).replace('_permissionName', permissionName)).then((res) => {
+                //vm.$set(this.role.permissions[permissionName], this.permissions[permissionName]);
+                for (var i in this.permissions) {
+                    if (this.permissions[i].name == permissionName) {
+                        this.role.permissions.push(this.permissions[i]);
+                        break;
+                    }
+                }
+            });
+        },
+        // 从角色中移除权限
+        roleRemoveChild: function (permissionName, index, event) {
+            Vue.http.post(yadjet.rbac.urls.roles.removeChild.replace('_roleName', vm.activeObject.role).replace('_permissionName', permissionName)).then((res) => {
                 //vm.$set(this.role.permissions[permissionName], this.permissions[permissionName]);
                 console.info(this.rolePermissions[permissionName]);
                 this.rolePermissions[permissionName].active = true;
@@ -200,23 +211,18 @@ var vm = new Vue({
 
             return roles;
         },
+        // 角色对应的权限
         rolePermissions: function () {
-            // if (isEmptyObject(this.role.permissions)) {
-            //     return {};
-            // }
             var permissions = [], permission;
             for (var i in this.permissions) {
                 permission = yadjet.utils.clone(this.permissions[i]);
                 permission.active = false;
                 for (var j in this.role.permissions) {
-                    if (permission.active) {
+                    if (permission.name == this.role.permissions[j].name) {
+                        permission.active = true;
                         break;
                     }
-                    if (permission.name == j) {
-                        permission.active = true;
-                    }
                 }
-
                 permissions.push(permission);
             }
 

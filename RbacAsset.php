@@ -16,6 +16,8 @@ class RbacAsset extends AssetBundle
         'vue-resource.js',
         'rbac.js',
     ];
-    public $depends = [];
+    public $depends = [
+        'yii\web\JqueryAsset',
+    ];
 
 }
