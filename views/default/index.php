@@ -16,21 +16,19 @@
                 <thead>
                     <tr>
                         <th>序号</th>
-                        <th>名称</th>
+                        <th>姓名</th>
                         <th>昵称</th>
-                        <th>角色</th>
-                        <th>权限</th>
+                        <th class="actions last"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="item in users" v-bind:class="{'selected': item.id == activeObject.userId}">
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.username }}</td>
+                        <td class="serial-number">{{ item.id }}</td>
+                        <td class="username">{{ item.username }}</td>
                         <td>{{ item.nickname }}</td>
-                        <td>
+                        <td class="btn-1">
                             <button v-on:click="userRolesByUserId(item.id)">Roles</button>
                         </td>
-                        <td>?</td>
                     </tr>
                 </tbody>
             </table>
@@ -43,7 +41,7 @@
                             <th>描述</th>
                             <th>规则</th>
                             <th>数据</th>
-                            <th></th>
+                            <th class="actions last"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +50,7 @@
                             <td>{{ item.description }}</td>
                             <td>{{ item.rule_name }}</td>
                             <td>{{ item.data }}</td>
-                            <td>
+                            <td class="btn-1">
                                 <button v-show="!item.active" v-on:click="assign(item.name, $index)">+</button>
                                 <button v-show="item.active" v-on:click="revoke(item.name, $index)">X</button>
                             </td>
@@ -86,7 +84,7 @@
                         <th>描述</th>
                         <th>规则</th>
                         <th>数据</th>
-                        <th></th>
+                        <th class="actions last"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,7 +93,7 @@
                         <td>{{ item.description }}</td>
                         <td>{{ item.rule_name }}</td>
                         <td>{{ item.data }}</td>
-                        <td>
+                        <td class="btn-3">
                             <button data-confirm="删除该角色？" v-on:click="roleDelete(item.name, $index, $event)">X</button>
                             <button data-confirm="删除该角色关联的所有权限？" v-on:click="roleRemoveChildren(item.name)">Remove Children</button>
                             <button v-on:click="permissionsByRole(item.name, $index)">Permissions</button>
@@ -112,7 +110,7 @@
                             <th>描述</th>
                             <th>规则</th>
                             <th>数据</th>
-                            <th></th>
+                            <th class="actions last"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -121,7 +119,7 @@
                             <td>{{ item.description }}</td>
                             <td>{{ item.rule_name }}</td>
                             <td>{{ item.data }}</td>
-                            <td>
+                            <td class="btn-1">
                                 <button v-show="!item.active" v-on:click="roleAddChild(item.name, $index, $event)">+</button>
                                 <button v-show="item.active" data-confirm="删除该权限？" v-on:click="roleRemoveChild(item.name, $index, $event)">X</button>
                             </td>
@@ -157,7 +155,7 @@
                         <th>描述</th>
                         <th>规则</th>
                         <th>数据</th>
-                        <th></th>
+                        <th class="actions last"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -166,7 +164,7 @@
                         <td>{{ item.description }}</td>
                         <td>{{ item.rule_name }}</td>
                         <td>{{ item.data }}</td>
-                        <td>
+                        <td class="btn-1">
                             <button data-confirm="删除该权限？" v-on:click="permissionDelete(item.name, $index, $event)">X</button>
                         </td>
                     </tr>
@@ -181,14 +179,14 @@
                     <tr>
                         <th>action</th>
                         <th>description</th>
-                        <th></th>
+                        <th class="actions last"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="item in pendingPermissions" v-bind:class="{ 'disabled': !item.active, 'enabled': item.active }">
                         <td>{{ item.name }}</td>
                         <td><input type="text" name="description" :disabled="!item.active" :value="item.description" placeholder="请填写该权限的描述内容" v-model="item.description"/></td>
-                        <td>
+                        <td class="btn-1">
                             <button :disabled="!item.active" @click="permissionSave(item.name, item.description, $index, $event)">Save</button>
                         </td>
                     </tr>
