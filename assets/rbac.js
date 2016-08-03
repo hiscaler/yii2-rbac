@@ -155,7 +155,6 @@ var vm = new Vue({
         // 分配权限给角色
         roleAddChild: function (permissionName, index, event) {
             Vue.http.post(yadjet.rbac.urls.roles.addChild.replace('_roleName', vm.activeObject.role).replace('_permissionName', permissionName)).then((res) => {
-                //vm.$set(this.role.permissions[permissionName], this.permissions[permissionName]);
                 for (var i in this.permissions) {
                     if (this.permissions[i].name == permissionName) {
                         this.role.permissions.push(this.permissions[i]);
@@ -167,11 +166,12 @@ var vm = new Vue({
         // 从角色中移除权限
         roleRemoveChild: function (permissionName, index, event) {
             Vue.http.post(yadjet.rbac.urls.roles.removeChild.replace('_roleName', vm.activeObject.role).replace('_permissionName', permissionName)).then((res) => {
-                //vm.$set(this.role.permissions[permissionName], this.permissions[permissionName]);
-                console.info(this.rolePermissions[permissionName]);
-                this.rolePermissions[permissionName].active = true;
-                console.info(index);
-                console.info(permissionName);
+                for (var i in this.role.permissions) {
+                    if (this.role.permissions[i].name == permissionName) {
+                        this.role.permissions.splice(i, 1);
+                        break;
+                    }
+                }
             });
         },
         // 切换添加表单是否可见

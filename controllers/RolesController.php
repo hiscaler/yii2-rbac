@@ -116,7 +116,7 @@ class RolesController extends Controller
     }
 
     /**
-     * 添加角色和权限关联数据
+     * 添加角色和权限关联关系
      * @param string $roleName
      * @param string $permissionName
      * @return Response
@@ -143,11 +143,17 @@ class RolesController extends Controller
         ]);
     }
 
+    /**
+     * 移除角色和权限关联关系
+     * @param string $roleName
+     * @param string $permissionName
+     * @return Response
+     */
     public function actionRemoveChild($roleName, $permissionName)
     {
         try {
             $auth = Yii::$app->getAuthManager();
-            $auth->removeChild($roleName, $permissionName);
+            $auth->removeChild($this->auth->getRole($roleName), $this->auth->getPermission($permissionName));
             $responseBody = ['success' => true];
         } catch (Exception $ex) {
             $responseBody = [
