@@ -1,0 +1,451 @@
+a {
+    text-decoration: none;
+}
+#rbac-app {}
+.rbac-tabs-common {
+    border-bottom: 1px solid #E9E9E9;
+    height: 25px;
+    margin: 0 0 10px;
+}
+.rbac-tabs-common li {
+    float: left;
+    list-style: none outside none;
+    margin: 0 6px;
+}
+.rbac-tabs-common li.active a {
+    background: none repeat scroll 0 0 #F5F5F5;
+    border-top: #DD4B39 solid 2px;
+    border-bottom: 1px solid #F8F8F8;
+    color: #4362BF;
+    font-weight: bold;
+}
+.rbac-tabs-common a:hover {
+    background: none repeat scroll 0 0 #F5F5F5;
+}
+.rbac-tabs-common a {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #FFF;
+    border-color: #E9E9E9;
+    border-style: solid solid none;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-width: 1px 1px medium;
+    color: #666677;
+    display: block;
+    padding: 2px 15px;
+    text-decoration: none;
+}
+.rbac-tabs-common li.active a {
+    padding: 1px 25px;
+}
+.rbac-tabs-common .badges {
+    margin-left: 10px;
+}
+
+/*******************************************************************************
+ * Grid View
+ ******************************************************************************/
+.rbac-grid-view-loading {
+    background: url(../images/loading.gif) no-repeat;
+}
+.rbac-grid-view {
+    width: 100%;
+    overflow: auto;
+}
+.rbac-grid-view table.table {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    margin-bottom: 0;
+}
+.rbac-grid-view table.table th, .rbac-grid-view table.table td {
+    border-bottom: 1px #E9E9E9 solid;
+    padding: 2px 5px;
+    /* 保持不换行 */
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: keep-all; /* for ie */
+    white-space: nowrap; /* for chrome */
+}
+.rbac-grid-view table.table th.nowrap, .rbac-grid-view table.table td.nowrap {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.rbac-grid-view table.table th.pointer, .rbac-grid-view table.table td.pointer {
+    cursor: pointer;
+}
+.rbac-grid-view table.table th {
+    border-top: 1px #E9E9E9 solid;
+    background: #F5F5F5 url(../images/rbac-grid-view-header-bg.gif) no-repeat right center;
+    padding: 5px 4px;
+    color: #7d8389;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: bold;
+}
+.rbac-grid-view table.table th.last {
+    background: #F5F5F5;
+}
+.rbac-grid-view table.table th a {
+    color: #7d8389;
+    font-weight: bold;
+    text-decoration: none;
+}
+.rbac-grid-view table.table th a:hover {
+    color: #3b5998;
+}
+.rbac-grid-view table.table th a.asc {
+    background: url(../images/up.gif) right center no-repeat;
+    padding-right: 10px;
+}
+.rbac-grid-view table.table th a.desc {
+    background: url(../images/down.gif) right center no-repeat;
+    padding-right: 10px;
+}
+.rbac-grid-view table.table tr.even {
+    background: #FFF;
+}
+.rbac-grid-view table.table tr.odd {
+    background: #FAFCFF;
+}
+.rbac-grid-view table.table tr.block {
+    background: #FFF6BF;
+}
+.rbac-grid-view table.table tr.selected td {
+    background: #FFFFEF;
+}
+.rbac-grid-view table.table tr.disabled td {
+    background: #F5F5F5;
+    color: #CCC;
+}
+.rbac-grid-view table.table tr.disabled td a {
+    color: #CCC;
+}
+.rbac-grid-view table.table tr.today {
+    border-left: #E7002E solid 2px;
+}
+.rbac-grid-view table.table tr.root .name {
+    font-weight: bold;
+}
+.rbac-grid-view table.table tr.children-2 .name,
+.rbac-grid-view table.table tr.children-3 .name,
+.rbac-grid-view table.table tr.children-4 .name {
+    background-image: url("../images/right-arrow.png");
+    background-repeat: no-repeat;
+    background-position: 24px center;
+    padding-left: 40px;
+}
+.rbac-grid-view table.table tr.children-3 .name {
+    background-position: 40px center;
+    padding-left: 56px;
+}
+.rbac-grid-view table.table tr.children-4 .name {
+    background-position: 56px center;
+    padding-left: 72px;
+}
+.rbac-grid-view table.table tr:hover {
+    background: #ECFBD4;
+}
+.rbac-grid-view table.table tr td img {
+    border: none;
+    vertical-align: middle;
+}
+.rbac-grid-view .link-column img {
+    border: 0;
+}
+.rbac-grid-view .button-column {
+    text-align: center;
+}
+.rbac-grid-view .button-column img {
+    border: 0;
+}
+.rbac-grid-view .checkbox-column {
+    width: 15px;
+}
+.rbac-grid-view .summary {
+    margin: 0 0 5px 0;
+    line-height: 31px;
+    padding-right: 10px;
+    text-align: right;
+    color: #7d8389;
+}
+.rbac-grid-view .summary b {
+    margin: 0 5px;
+}
+.rbac-grid-view .pager {}
+.rbac-grid-view .empty {
+    background: #FFFCC9 url(../images/notice.png) no-repeat 5px center;
+    padding: 2px 5px 2px 25px;
+    height: 24px;
+    line-height: 24px;
+}
+.rbac-grid-view tr.filters td {
+    padding: 2px 0 2px 5px;
+    margin: 0;
+}
+.rbac-grid-view .filters input {
+    border: 1px solid #E9E9E9;
+    padding: 4px 5px;
+}
+.rbac-grid-view table.table td.center {
+    text-align: center;
+}
+.rbac-grid-view table.table td.pk {
+    width: 50px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #999;
+}
+.rbac-grid-view table.table td.checkbox {
+    width: 20px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.serial-number {
+    width: 30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #999;
+    text-align: center;
+}
+.rbac-grid-view table.table td.pk a {
+    color: #999;
+}
+.rbac-grid-view table.table td.date {
+    width: 65px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.datetime {
+    width: 160px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.begin-end-date {
+    width: 180px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.group-name {
+    width: 100px;
+}
+.rbac-grid-view table.table td.username {
+    width: 60px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.firstname {
+    width: 60px;
+}
+.rbac-grid-view table.table td.lastname {
+    width: 80px;
+}
+.rbac-grid-view table.table td.user-role {
+    width: 120px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.user-group-alias {
+    width: 80px;
+}
+.rbac-grid-view table.table td.user-group-name {
+    width: 120px;
+}
+.rbac-grid-view table.table td.date-time-ago {
+    width: 85px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.ip-address {
+    width: 96px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.ordering {
+    width: 40px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.icon {
+    width: 34px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.boolean {
+    width: 30px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.number {
+    width: 60px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.industry {
+    width: 160px;
+}
+.rbac-grid-view table.table td.node-name {
+    width: 80px;
+}
+.rbac-grid-view table.table td.data-status {
+    width: 66px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.model-name {
+    width: 100px;
+}
+.rbac-grid-view table.table td.tel {
+    width: 90px;
+}
+.rbac-grid-view table.table td.category-name {
+    width: 90px;
+}
+/* Ad */
+.rbac-grid-view table.table td.ad-space-alias {
+    width: 100px;
+}
+.rbac-grid-view table.table td.ad-space-name {
+    width: 120px;
+}
+.rbac-grid-view table.table td.ad-space-size {
+    width: 100px;
+}
+.rbac-grid-view table.table td.ad-type {
+    width: 80px;
+    text-align: center;
+}
+/* base code */
+.rbac-grid-view table.table td.base-code-code {
+    width: 60px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.base-code-value {
+    width: 80px;
+}
+/* Lookup */
+.rbac-grid-view table.table td.lookup-label {
+    width: 100px;
+}
+.rbac-grid-view table.table td.lookup-return-type {
+    width: 80px;
+}
+/* Group options */
+.rbac-grid-view table.table td.group-options-group-name {
+    width: 150px;
+}
+.rbac-grid-view table.table td.group-options-text {
+    width: 100px;
+}
+.rbac-grid-view table.table td.group-options-value {
+    width: 60px;
+}
+/* Node */
+.rbac-grid-view table.table td.node-tree {
+    padding: 0;
+    height: 30px;
+    line-height: 30px;
+}
+.rbac-grid-view table.table td.node-tree .level {
+    background: url(../images/node-tree.png) no-repeat -109px 0;
+    display: inline-block;
+    width: 20px;
+}
+.rbac-grid-view table.table td.node-tree .level-0 {}
+.rbac-grid-view table.table td.node-tree .level-1 { margin-left: 24px; }
+.rbac-grid-view table.table td.node-tree .level-2 { margin-left: 48px; }
+.rbac-grid-view table.table td.node-tree .level-3 { margin-left: 96px; }
+.rbac-grid-view table.table td.node-tree .level-4 { margin-left: 120px; }
+.rbac-grid-view table.table td.node-tree span.node-parameters {
+    display: inline-block;
+    width: 16px;
+    margin-left: 5px;
+    background: url(../images/node-parameters.png) no-repeat center center;
+    cursor: pointer;
+}
+/* friendly link */
+.rbac-grid-view table.table td.friendly-link-url-open-target {
+    width: 72px;
+}
+/* article */
+.rbac-grid-view table.table td.article-alias {
+    width: 100px;
+}
+/* workflow */
+.rbac-grid-view table.table td.workflow-rule-name {
+    width: 120px;
+}
+.rbac-grid-view table.table td.workflow-task-status {
+    width: 80px;
+    text-align: center;
+}
+/* Tenant */
+.rbac-grid-view table.table td.tenant-key {
+    width: 80px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.tenant-name {
+    width: 120px;
+}
+.rbac-grid-view table.table td.domain-name {
+    width: 80px;
+}
+.rbac-grid-view table.table td.tenant-language {
+    width: 60px;
+    text-align: center;
+}
+.rbac-grid-view table.table td.timezone {
+    width: 80px;
+}
+.rbac-grid-view table.table td.access-token {
+    width: 280px;
+}
+/* meta */
+.rbac-grid-view table.table td.meta-name {
+    width: 120px;
+}
+.rbac-grid-view table.table td.meta-form-field-type {
+    width: 90px;
+}
+.rbac-grid-view table.table td.meta-db-field-type {
+    width: 100px;
+}
+.rbac-grid-view table.table td.meta-validator-rule {
+    width: 100px;
+}
+/* file upload configs */
+.rbac-grid-view table.table td.file-upload-config-attribute {
+    width: 130px;
+}
+.rbac-grid-view table.table td.file-upload-config-thumb,
+.rbac-grid-view table.table td.file-upload-config-size {
+    width: 100px;
+}
+
+.rbac-grid-view table.table td a.preview {
+    padding-left: 20px;
+    background: url(../images/preview.gif) no-repeat;
+}
+.rbac-grid-view table.table td span.pk {
+    color: #E7002E;
+    margin-right: 5px;
+}
+.rbac-grid-view table.table td span.attributes {
+    color: #E7002E;
+    float: right;
+}
+.rbac-grid-view table.table th.actions, .rbac-grid-view table.table td.actions {
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.rbac-grid-view table.table td a.float-update {
+    padding-right: 20px;
+}
+.rbac-grid-view table.table td a.float-update:hover {
+    background: url(../images/update.png) no-repeat right center;
+}
+.rbac-grid-view table.table td.btn { width: 20px; _width: 30px; }
+.rbac-grid-view table.table td.btn-2 { width: 40px; _width: 40px; }
+.rbac-grid-view table.table td.btn-3 { width: 60px; _width: 70px; }
+.rbac-grid-view table.table td.btn-4 { width: 80px; _widht: 90px; }
+.rbac-grid-view table.table td.btn-5 { width: 100px; _widht: 110px; }
+.rbac-grid-view table.table td.btn-6 { width: 120px; _widht: 130px; }
+.rbac-grid-view table.table td.btn-7 { width: 140px; _widht: 150px; }
+.rbac-grid-view table.table td.btn-8 { width: 160px; _widht: 170px; }
+.rbac-grid-view table.table td.btn-9 { width: 180px; _widht: 190px; }
+.rbac-grid-view table.table td.btn-10 { width: 200px; _widht: 210px; }
