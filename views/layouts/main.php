@@ -47,7 +47,8 @@ $asset = yadjet\rbac\RbacAsset::register($this);
                     'delete': '<?= \yii\helpers\Url::toRoute(['roles/delete', 'name' => '_name']) ?>',
                     permissions: '<?= \yii\helpers\Url::toRoute(['roles/permissions-by-role', 'roleName' => '_roleName']) ?>',
                     addChild: '<?= \yii\helpers\Url::toRoute(['roles/add-child', 'roleName' => '_roleName', 'permissionName' => '_permissionName']) ?>',
-                    removeChild: '<?= \yii\helpers\Url::toRoute(['roles/remove-child', 'roleName' => '_roleName', 'permissionName' => '_permissionName']) ?>'
+                    removeChild: '<?= \yii\helpers\Url::toRoute(['roles/remove-child', 'roleName' => '_roleName', 'permissionName' => '_permissionName']) ?>',
+                    removeChildren: '<?= \yii\helpers\Url::toRoute(['roles/remove-children', 'name' => '_name']) ?>'
                 },
                 permissions: {
                     list: '<?= \yii\helpers\Url::toRoute(['permissions/index']) ?>',

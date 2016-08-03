@@ -57,7 +57,8 @@ yadjet.rbac.urls = yadjet.rbac.urls || {
             'delete': undefined, // 删除角色
             permissions: undefined, // 角色对应的权限
             addChild: undefined, // 角色关联权限操作
-            removeChild: undefined // 删除角色中的某个关联权限
+            removeChild: undefined, // 删除角色中的某个关联权限
+            removeChildren: undefined, // 删除角色关联的所有权限
         },
         permissions: {
             create: undefined,
@@ -141,6 +142,12 @@ var vm = new Vue({
                 this.roles.splice(index, 1);
             });
             event.preventDefault();
+        },
+        // 删除角色关联的所有权限
+        roleRemoveChildren: function (roleName) {
+            Vue.http.post(yadjet.rbac.urls.roles.removeChildren.replace('_name', roleName)).then((res) => {
+                this.role.permissions = [];
+            });
         },
         // 根据角色获取关联的所有权限
         permissionsByRole: function (roleName, index) {

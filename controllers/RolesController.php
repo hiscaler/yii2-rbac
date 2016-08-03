@@ -25,10 +25,6 @@ class RolesController extends Controller
 
     public function actionIndex()
     {
-//        $items = Yii::$app->getDb()->createCommand('SELECT * FROM {{%auth_item}} WHERE [[type]] = :type', [':type' => Item::TYPE_ROLE])->queryAll();
-//        foreach ($items as $key => $item) {
-//            $items[$key]['deleteUrl'] = Url::toRoute(['roles/delete', 'name' => $item['name']]);
-//        }
         $items = array_values(Yii::$app->getAuthManager()->getRoles());
 
         return new Response([
@@ -84,11 +80,11 @@ class RolesController extends Controller
                 'success' => true,
                 'data' => $role,
             ];
-        } catch (Exception $ex) {
+        } catch (Exception $exc) {
             $responseBody = [
                 'success' => false,
                 'error' => [
-                    'message' => $ex->getMessage(),
+                    'message' => $exc->getMessage(),
                 ]
             ];
         }
@@ -130,10 +126,10 @@ class RolesController extends Controller
             $responseBody = [
                 'success' => true,
             ];
-        } catch (Exception $ex) {
+        } catch (Exception $exc) {
             $responseBody = [
                 'success' => false,
-                'error' => ['message' => $ex->getMessage()],
+                'error' => ['message' => $exc->getMessage()],
             ];
         }
 
@@ -155,11 +151,43 @@ class RolesController extends Controller
             $auth = Yii::$app->getAuthManager();
             $auth->removeChild($this->auth->getRole($roleName), $this->auth->getPermission($permissionName));
             $responseBody = ['success' => true];
-        } catch (Exception $ex) {
+        } catch (Exception $exc) {
             $responseBody = [
                 'success' => false,
                 'error' => [
-                    'message' => $ex->getMessage(),
+                    'message' => $exc->getMessage(),
+                ]
+            ];
+        }
+
+        return new Response([
+            'format' => Response::FORMAT_JSON,
+            'data' => $responseBody,
+        ]);
+    }
+
+    /**
+     * 删除角色关联的所有权限
+     * @param string $name
+     * @return Response
+     */
+    public function actionRemoveChildren($name)
+    {
+        try {
+            $auth = Yii::$app->getAuthManager();
+            $role = $auth->getRole(trim($name));
+            $result = $auth->removeChildren($role);
+            $responseBody = [
+                'success' => $result
+            ];
+            if (!$result) {
+                $responseBody['error']['message'] = 'Unknown Error.';
+            }
+        } catch (Exception $exc) {
+            $responseBody = [
+                'success' => false,
+                'error' => [
+                    'message' => $exc->getMessage(),
                 ]
             ];
         }
