@@ -226,26 +226,7 @@ var vm = new Vue({
             }
 
             return permissions;
-        },
-        userPermissionByRole: function () {
-            var permissions = [], permission;
-            for (var i in this.permissions) {
-                permission = this.permissions.slice(i, 1);
-                var isChild = false;
-                for (var j in this.ownAuth.permissions) {
-                    if (isChild) {
-                        break;
-                    }
-                    if (this.permissions[i].name == this.ownAuth.permissions[j].name) {
-                        isChild = true;
-                    }
-                }
-                permission.isChild = isChild;
-                permissions.push(permission);
-            }
-
-            return permissions;
-        },
+        }
     }
 });
 
