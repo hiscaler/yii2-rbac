@@ -137,7 +137,7 @@ var vm = new Vue({
             });
         },
         // 删除角色
-        deleteRole: function (roleName, index, event) {
+        roleDelete: function (roleName, index, event) {
             Vue.http.post(yadjet.rbac.urls.roles.delete.replace('_name', roleName)).then((res) => {
                 this.roles.splice(index, 1);
             });
