@@ -5,7 +5,7 @@
             <li><a data-toggle="rbac-roles" href="<?= \yii\helpers\Url::toRoute('roles') ?>">Roles</a></li>
             <li><a data-toggle="rbac-permissions" href="<?= \yii\helpers\Url::toRoute('permissions') ?>">Permissions</a>
             </li>
-            <li><a data-toggle="rbac-scan-actions" href="<?= \yii\helpers\Url::toRoute('default/scan') ?>">Scan Controllers</a></li>
+            <li><a data-toggle="rbac-pending-permissions" href="<?= \yii\helpers\Url::toRoute('default/scan') ?>">Scan Permissions</a></li>
         </ul>
     </div>
 
@@ -166,7 +166,7 @@
                         <td>{{ item.rule_name }}</td>
                         <td>{{ item.data }}</td>
                         <td>
-                            <button data-confirm="删除该权限？" v-on:click="deletePermission(item.deleteUrl, $index, $event)">X</button>
+                            <button data-confirm="删除该权限？" v-on:click="permissionDelete(item.name, $index, $event)">X</button>
                         </td>
                     </tr>
                 </tbody>
@@ -174,7 +174,7 @@
 
         </div>
 
-        <div id="rbac-scan-actions" class="panel" style="display: none;">
+        <div id="rbac-pending-permissions" class="panel" style="display: none;">
             <table class="table">
                 <thead>
                     <tr>
@@ -184,11 +184,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in actions" v-bind:class="{ 'disabled': !item.active, 'enabled': item.active }">
+                    <tr v-for="item in pendingPermissions" v-bind:class="{ 'disabled': !item.active, 'enabled': item.active }">
                         <td>{{ item.name }}</td>
-                        <td><input type="text" name="description" :value="item.description" placeholder="请填写该权限的描述内容" v-model="item.description"/></td>
+                        <td><input type="text" name="description" :disabled="!item.active" :value="item.description" placeholder="请填写该权限的描述内容" v-model="item.description"/></td>
                         <td>
-                            <button @click="savePermission(item.name, item.description, $index, $event)">Save</button>
+                            <button :disabled="!item.active" @click="permissionSave(item.name, item.description, $index, $event)">Save</button>
                         </td>
                     </tr>
                 </tbody>

@@ -63,9 +63,9 @@ yadjet.rbac.urls = yadjet.rbac.urls || {
             create: undefined,
             read: undefined,
             update: undefined,
-            'delete': undefined
+            'delete': undefined,
+            scan: undefined
         },
-        scanController: undefined
     };
 
 var vm = new Vue({
@@ -89,11 +89,8 @@ var vm = new Vue({
         role: {
             permissions: {}
         },
-        permissions: {
-            count: 0,
-            items: {}
-        },
-        actions: {},
+        permissions: [],
+        pendingPermissions: {},
         formVisible: {
             role: false,
             permission: false
@@ -178,17 +175,25 @@ var vm = new Vue({
         toggleFormVisible: function (formName) {
             this.formVisible[formName] = !this.formVisible[formName];
         },
-        savePermission: function (name, description, index, event) {
+        // 保存扫描的权限
+        permissionSave: function (name, description, index, event) {
             Vue.http.post(yadjet.rbac.urls.permissions.create, {name: name, description: description}).then((res) => {
                 if (res.data.success) {
                     this.permissions.push(res.data.data);
-                    this.actions[index].active = false;
+                    this.pendingPermissions[index].active = false;
                 }
             });
         },
-        deletePermission: function (url, index, event) {
-            Vue.http.post(url).then((res) => {
+        // 删除单个权限
+        permissionDelete: function (name, index, event) {
+            Vue.http.post(yadjet.rbac.urls.permissions.delete.replace('_name', name)).then((res) => {
                 this.permissions.splice(index, 1);
+                for (var i in this.pendingPermissions) {
+                    if (this.pendingPermissions[i].name == name) {
+                        this.pendingPermissions[i].active = true;
+                        break;
+                    }
+                }
             });
             event.preventDefault();
         }

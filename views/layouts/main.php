@@ -51,9 +51,10 @@ $asset = yadjet\rbac\RbacAsset::register($this);
                 },
                 permissions: {
                     list: '<?= \yii\helpers\Url::toRoute(['permissions/index']) ?>',
-                    create: '<?= \yii\helpers\Url::toRoute(['permissions/create']) ?>'
-                },
-                scanController: '<?= \yii\helpers\Url::toRoute(['default/scan']) ?>'
+                    create: '<?= \yii\helpers\Url::toRoute(['permissions/create']) ?>',
+                    'delete': '<?= \yii\helpers\Url::toRoute(['permissions/delete', 'name' => '_name']) ?>',
+                   scan: '<?= \yii\helpers\Url::toRoute(['default/scan']) ?>'
+                }
             };
             Vue.http.get(yadjet.rbac.urls.auths).then((res) => {
                 vm.ownAuth.userId = res.data.userId;
@@ -69,8 +70,8 @@ $asset = yadjet\rbac\RbacAsset::register($this);
             Vue.http.get(yadjet.rbac.urls.permissions.list).then((res) => {
                 vm.permissions = res.data;
             });
-            Vue.http.get(yadjet.rbac.urls.scanController).then((res) => {
-                vm.actions = res.data;
+            Vue.http.get(yadjet.rbac.urls.permissions.scan).then((res) => {
+                vm.pendingPermissions = res.data;
             });
         </script>
     </body>

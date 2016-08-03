@@ -11,6 +11,10 @@ use yii\web\Response;
 class PermissionsController extends Controller
 {
 
+    /**
+     * 返回定义的所有权限
+     * @return Response
+     */
     public function actionIndex()
     {
         $items = Yii::$app->getAuthManager()->getPermissions();
@@ -21,6 +25,10 @@ class PermissionsController extends Controller
         ]);
     }
 
+    /**
+     * 添加权限
+     * @return Response
+     */
     public function actionCreate()
     {
         $request = Yii::$app->getRequest();
@@ -65,6 +73,11 @@ class PermissionsController extends Controller
         }
     }
 
+    /**
+     * 删除权限
+     * @param string $name
+     * @return Response
+     */
     public function actionDelete($name)
     {
         try {
@@ -74,7 +87,6 @@ class PermissionsController extends Controller
             $auth->remove($permission);
             $responseBody = [
                 'success' => true,
-                'data' => $permission,
             ];
         } catch (Exception $ex) {
             $responseBody = [
