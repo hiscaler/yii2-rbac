@@ -2,7 +2,7 @@
 
 namespace yadjet\rbac\controllers;
 
-use yii\base\Exception;
+use Yii;
 use yii\db\Query;
 use yii\helpers\FileHelper;
 use yii\helpers\Inflector;
@@ -64,24 +64,21 @@ class DefaultController extends Controller
     public function actionScan()
     {
         $configs = [
-            'disableScanModules' => ['gii', 'rbac'], // 禁止扫描的模块
+            'disableScanModules' => ['gii', 'rbac', 'debug'], // 禁止扫描的模块
         ];
         $actions = $files = [];
         $paths = [
-            'app' => \Yii::$app->getControllerPath()
+            'app' => Yii::$app->getControllerPath()
         ];
 
-        foreach (\Yii::$app->getModules() as $module) {
-            $moduleId = $module->getUniqueId();
+        foreach (Yii::$app->getModules() as $key => $config) {
+            $moduleId = Yii::$app->getModule($key)->getUniqueId();
             if (empty($moduleId) || in_array($moduleId, $configs['disableScanModules'])) {
                 continue;
             }
-            try {
-                $paths[$moduleId] = FileHelper::findFiles(\Yii::$app->getModule($module->getUniqueId())->getControllerPath());
-            } catch (Exception $ex) {
-                
-            }
+            $paths[$moduleId] = Yii::$app->getModule($moduleId)->getControllerPath();
         }
+
         foreach ($paths as $moduleId => $path) {
             if (!isset($files[$moduleId])) {
                 $files[$moduleId] = [];
