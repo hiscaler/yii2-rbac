@@ -13,6 +13,8 @@ use yii\web\Response;
 class DefaultController extends Controller
 {
 
+    public $layout = 'main';
+
     public function actionIndex()
     {
         return $this->render('index');
