@@ -35,8 +35,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
             throw new ForbiddenHttpException('You are not allowed to access this page.');
         }
 
-
-
         return true;
     }
 

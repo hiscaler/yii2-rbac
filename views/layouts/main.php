@@ -1,9 +1,12 @@
 <?php
+
+use yadjet\rbac\RbacAsset;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-$asset = yadjet\rbac\RbacAsset::register($this);
+$asset = RbacAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -31,29 +34,29 @@ $asset = yadjet\rbac\RbacAsset::register($this);
         <?php $this->endBody() ?>
         <script type="text/javascript">
             yadjet.rbac.urls = {
-                assign: '<?= \yii\helpers\Url::toRoute(['users/assign']) ?>',
-                revoke: '<?= \yii\helpers\Url::toRoute(['users/revoke']) ?>',
+                assign: '<?= Url::toRoute(['users/assign']) ?>',
+                revoke: '<?= Url::toRoute(['users/revoke']) ?>',
                 users: {
-                    list: '<?= \yii\helpers\Url::toRoute(['users/index']) ?>'
+                    list: '<?= Url::toRoute(['users/index']) ?>'
                 },
                 user: {
-                    roles: '<?= \yii\helpers\Url::toRoute(['users/roles', 'id' => '_id']) ?>',
-                    permissions: '<?= \yii\helpers\Url::toRoute(['users/permissions']) ?>'
+                    roles: '<?= Url::toRoute(['users/roles', 'id' => '_id']) ?>',
+                    permissions: '<?= Url::toRoute(['users/permissions']) ?>'
                 },
                 roles: {
-                    list: '<?= \yii\helpers\Url::toRoute(['roles/index']) ?>',
-                    create: '<?= \yii\helpers\Url::toRoute(['roles/create']) ?>',
-                    'delete': '<?= \yii\helpers\Url::toRoute(['roles/delete', 'name' => '_name']) ?>',
-                    permissions: '<?= \yii\helpers\Url::toRoute(['roles/permissions-by-role', 'roleName' => '_roleName']) ?>',
-                    addChild: '<?= \yii\helpers\Url::toRoute(['roles/add-child', 'roleName' => '_roleName', 'permissionName' => '_permissionName']) ?>',
-                    removeChild: '<?= \yii\helpers\Url::toRoute(['roles/remove-child', 'roleName' => '_roleName', 'permissionName' => '_permissionName']) ?>',
-                    removeChildren: '<?= \yii\helpers\Url::toRoute(['roles/remove-children', 'name' => '_name']) ?>'
+                    list: '<?= Url::toRoute(['roles/index']) ?>',
+                    create: '<?= Url::toRoute(['roles/create']) ?>',
+                    'delete': '<?= Url::toRoute(['roles/delete', 'name' => '_name']) ?>',
+                    permissions: '<?= Url::toRoute(['roles/permissions-by-role', 'roleName' => '_roleName']) ?>',
+                    addChild: '<?= Url::toRoute(['roles/add-child', 'roleName' => '_roleName', 'permissionName' => '_permissionName']) ?>',
+                    removeChild: '<?= Url::toRoute(['roles/remove-child', 'roleName' => '_roleName', 'permissionName' => '_permissionName']) ?>',
+                    removeChildren: '<?= Url::toRoute(['roles/remove-children', 'name' => '_name']) ?>'
                 },
                 permissions: {
-                    list: '<?= \yii\helpers\Url::toRoute(['permissions/index']) ?>',
-                    create: '<?= \yii\helpers\Url::toRoute(['permissions/create']) ?>',
-                    'delete': '<?= \yii\helpers\Url::toRoute(['permissions/delete', 'name' => '_name']) ?>',
-                   scan: '<?= \yii\helpers\Url::toRoute(['default/scan']) ?>'
+                    list: '<?= Url::toRoute(['permissions/index']) ?>',
+                    create: '<?= Url::toRoute(['permissions/create']) ?>',
+                    'delete': '<?= Url::toRoute(['permissions/delete', 'name' => '_name']) ?>',
+                   scan: '<?= Url::toRoute(['default/scan']) ?>'
                 }
             };
             Vue.http.get(yadjet.rbac.urls.auths).then((res) => {
