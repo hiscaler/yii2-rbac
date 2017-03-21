@@ -1,35 +1,35 @@
 {
-  "name": "yadjet/yii2-rbac",
-  "description": "The RBAC GUI for the Yii framework",
-  "keywords": [
-    "yii2",
-    "rbac",
-  ],
-  "type": "yii2-extension",
-  "license": "BSD-3-Clause",
-  "support": {
-    "issues": "https://github.com/hiscaler/yii2-rbac/issues",
-    "forum": "http://www.yiiframework.com/forum/",
-    "wiki": "http://www.yiiframework.com/wiki/",
-    "irc": "irc://irc.freenode.net/yii",
-    "source": "https://github.com/yiisoft/yii2-gii"
-  },
-  "authors": [
-    {
-      "name": "hisca;er",
-      "email": "hiscaler@gmail.com"
+    "name": "yadjet/yii2-rbac",
+    "description": "The RBAC GUI for the Yii framework",
+    "keywords": [
+        "yii2",
+        "rbac"
+    ],
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/hiscaler/yii2-rbac/issues",
+        "forum": "http://www.yiiframework.com/forum/",
+        "wiki": "http://www.yiiframework.com/wiki/",
+        "irc": "irc://irc.freenode.net/yii",
+        "source": "https://github.com/yiisoft/yii2-gii"
+    },
+    "authors": [
+        {
+            "name": "hisca;er",
+            "email": "hiscaler@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": ">=2.0.4",
+        "yiisoft/yii2-bootstrap": "~2.0",
+        "phpspec/php-diff": ">=1.0.2",
+        "bower-asset/typeahead.js": "0.10.* | ~0.11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "yii\\rbac\\": ""
+        }
     }
-  ],
-  "minimum-stability": "dev",
-  "require": {
-    "yiisoft/yii2": ">=2.0.4",
-    "yiisoft/yii2-bootstrap": "~2.0",
-    "phpspec/php-diff": ">=1.0.2",
-    "bower-asset/typeahead.js": "0.10.* | ~0.11.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "yii\\rbac\\": ""
-    }
-  }
 }
