@@ -3,17 +3,26 @@
 namespace yadjet\rbac\controllers;
 
 use Yii;
-use yii\db\Query;
+use yii\base\Exception;
 use yii\helpers\FileHelper;
 use yii\helpers\Inflector;
-use yii\rbac\Item;
-use yii\web\Controller;
 use yii\web\Response;
 
-class DefaultController extends Controller
+class DefaultController extends \yii\web\Controller
 {
 
     public $layout = 'main';
+   /** @var \yii\rbac\DbManager $auth */
+    protected $auth;
+
+    public function init()
+    {
+        parent::init();
+        $this->auth = \Yii::$app->getAuthManager();
+        if ($this->auth === null) {
+            throw new Exception('Please setting authManager component in config file.');
+        }
+    }
 
     public function actionIndex()
     {
@@ -66,9 +75,10 @@ class DefaultController extends Controller
         $configs = [
             'disableScanModules' => ['gii', 'rbac', 'debug'], // 禁止扫描的模块
         ];
+        $appId = Yii::$app->id;
         $actions = $files = [];
         $paths = [
-            'app' => Yii::$app->getControllerPath()
+            "{$appId}@" => Yii::$app->getControllerPath()
         ];
 
         foreach (Yii::$app->getModules() as $key => $config) {
@@ -76,7 +86,7 @@ class DefaultController extends Controller
             if (empty($moduleId) || in_array($moduleId, $configs['disableScanModules'])) {
                 continue;
             }
-            $paths[$moduleId] = Yii::$app->getModule($moduleId)->getControllerPath();
+            $paths["{$appId}@{$moduleId}@"] = Yii::$app->getModule($moduleId)->getControllerPath();
         }
 
         foreach ($paths as $moduleId => $path) {
@@ -86,7 +96,7 @@ class DefaultController extends Controller
             $files[$moduleId] = FileHelper::findFiles($path);
         }
 
-        $existsActions = (new Query())->select(['name'])->from('{{%auth_item}}')->where(['type' => Item::TYPE_PERMISSION])->column();
+        $existsActions = $this->auth->getPermissions();
         foreach ($files as $moduleId => $items) {
             foreach ($items as $file) {
                 $parseActions = $this->_parseControllerFile($file);
@@ -94,8 +104,8 @@ class DefaultController extends Controller
                     $name = $moduleId . Inflector::camelize(str_replace('Controller', '', basename($file, '.php')) . '.' . Inflector::camel2id($key));
                     $actions[] = [
                         'name' => $name,
-                        'description' => $description,
-                        'active' => in_array($name, $existsActions) ? false : true,
+                        'description' => isset($existsActions[$name]) ? $existsActions[$name]->description : $description,
+                        'active' => isset($existsActions[$name]) ? false : true,
                     ];
                 }
             }

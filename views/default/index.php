@@ -134,7 +134,7 @@
             <div id="rbac-persmission-form" v-show="formVisible.permission">
                 <form action="<?= \yii\helpers\Url::toRoute(['permission/create']) ?>">
                     <p>
-                        Name: <input type="text" id="name" name="name" value="" placeholder="Permission name"/>                  
+                        Name: <input type="text" id="name" name="name" value="" placeholder="Permission name"/>
                         Description: <input type="text" id="description" name="description" value="" placeholder="Description"/>
                         <input id="rbac-sumbit-permission" type="submit" value="Save"/>
                     </p>

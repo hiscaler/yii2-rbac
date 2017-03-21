@@ -65,11 +65,10 @@ class UsersController extends Controller
             $id = $user->getIsGuest() ? 0 : $user->getId();
         }
         if ($id) {
-            $db = Yii::$app->getDb();
             $ownRoles = $this->auth->getRolesByUser($id);
             $ownPermissions = $this->auth->getPermissionsByUser($id);
 
-            $itemCommand = $db->createCommand('SELECT * FROM {{%auth_item}} WHERE [[type]] = :type');
+            $itemCommand = $this->auth->db->createCommand('SELECT * FROM ' . $this->auth->itemTable . ' WHERE [[type]] = :type');
             $roles = $itemCommand->bindValue(':type', Item::TYPE_ROLE)->queryAll();
             $permissions = $itemCommand->bindValue(':type', Item::TYPE_PERMISSION)->queryAll();
 

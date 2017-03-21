@@ -7,18 +7,15 @@ use yii\base\Exception;
 class Controller extends \yii\rest\Controller
 {
 
-    /**
-     *
-     * @return \yii\rbac\DbManager
-     */
+    /** @var \yii\rbac\DbManager $auth */
     protected $auth;
 
     public function init()
     {
         parent::init();
         $this->auth = \Yii::$app->getAuthManager();
-        if ($this->auth === false) {
-            throw new Exception('Please setting authManager component');
+        if ($this->auth === null) {
+            throw new Exception('Please setting authManager component in config file.');
         }
     }
 
