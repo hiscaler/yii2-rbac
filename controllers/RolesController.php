@@ -28,7 +28,7 @@ class RolesController extends Controller
 
     public function actionIndex()
     {
-        $items = array_values(Yii::$app->getAuthManager()->getRoles());
+        $items = array_values($this->auth->getRoles());
 
         return new Response([
             'format' => Response::FORMAT_JSON,
@@ -48,10 +48,9 @@ class RolesController extends Controller
                 $errorMessage = '名称不能为空。';
             } else {
                 $description = trim($request->post('description'));
-                $auth = Yii::$app->getAuthManager();
-                $role = $auth->createRole($name);
+                $role = $this->auth->createRole($name);
                 $role->description = $description;
-                $auth->add($role);
+                $this->auth->add($role);
             }
 
             $responseBody = [
@@ -79,9 +78,8 @@ class RolesController extends Controller
     public function actionDelete($name)
     {
         try {
-            $auth = Yii::$app->getAuthManager();
-            $role = $auth->getRole(trim($name));
-            $auth->remove($role);
+            $role = $this->auth->getRole(trim($name));
+            $this->auth->remove($role);
             $responseBody = [
                 'success' => true,
                 'data' => $role,
@@ -108,8 +106,7 @@ class RolesController extends Controller
      */
     public function actionPermissionsByRole($roleName)
     {
-        $auth = Yii::$app->getAuthManager();
-        $permissions = array_values($auth->getPermissionsByRole($roleName));
+        $permissions = array_values($this->auth->getPermissionsByRole($roleName));
 
         return new Response([
             'format' => Response::FORMAT_JSON,
@@ -154,8 +151,7 @@ class RolesController extends Controller
     public function actionRemoveChild($roleName, $permissionName)
     {
         try {
-            $auth = Yii::$app->getAuthManager();
-            $auth->removeChild($this->auth->getRole($roleName), $this->auth->getPermission($permissionName));
+            $this->auth->removeChild($this->auth->getRole($roleName), $this->auth->getPermission($permissionName));
             $responseBody = ['success' => true];
         } catch (Exception $exc) {
             $responseBody = [
@@ -180,9 +176,8 @@ class RolesController extends Controller
     public function actionRemoveChildren($name)
     {
         try {
-            $auth = Yii::$app->getAuthManager();
-            $role = $auth->getRole(trim($name));
-            $result = $auth->removeChildren($role);
+            $role = $this->auth->getRole(trim($name));
+            $result = $this->auth->removeChildren($role);
             $responseBody = [
                 'success' => $result
             ];

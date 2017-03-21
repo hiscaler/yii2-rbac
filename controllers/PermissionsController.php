@@ -4,7 +4,6 @@ namespace yadjet\rbac\controllers;
 
 use Exception;
 use Yii;
-use yii\rest\Controller;
 use yii\web\Response;
 
 class PermissionsController extends Controller
@@ -16,7 +15,7 @@ class PermissionsController extends Controller
      */
     public function actionIndex()
     {
-        $items = Yii::$app->getAuthManager()->getPermissions();
+        $items = $this->auth->getPermissions();
 
         return new Response([
             'format' => Response::FORMAT_JSON,
@@ -48,10 +47,9 @@ class PermissionsController extends Controller
                 $success = false;
                 $errorMessage = '名称不能为空。';
             } else {
-                $auth = \Yii::$app->getAuthManager();
-                $permission = $auth->createPermission($name);
+                $permission = $this->auth->createPermission($name);
                 $permission->description = $description;
-                $auth->add($permission);
+                $this->auth->add($permission);
             }
 
             $responseBody = [
@@ -80,9 +78,8 @@ class PermissionsController extends Controller
     {
         try {
             $name = trim($name);
-            $auth = Yii::$app->getAuthManager();
-            $permission = $auth->getPermission($name);
-            $auth->remove($permission);
+            $permission = $this->auth->getPermission($name);
+            $this->auth->remove($permission);
             $responseBody = [
                 'success' => true,
             ];

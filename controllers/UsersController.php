@@ -15,7 +15,7 @@ class UsersController extends Controller
      */
     public function actionIndex()
     {
-        $items = Yii::$app->getDb()->createCommand('SELECT * FROM {{%user}}')->queryAll();
+        $items = $this->auth->db->createCommand('SELECT * FROM {{%user}}')->queryAll();
 
         return new Response([
             'format' => Response::FORMAT_JSON,
@@ -36,7 +36,7 @@ class UsersController extends Controller
 
         return new Response([
             'format' => Response::FORMAT_JSON,
-            'data' => array_values(Yii::$app->getAuthManager()->getRolesByUser($id)),
+            'data' => array_values($this->auth->getRolesByUser($id)),
         ]);
     }
 
@@ -53,7 +53,7 @@ class UsersController extends Controller
 
         return new Response([
             'format' => Response::FORMAT_JSON,
-            'data' => Yii::$app->getAuthManager()->getPermissionsByUser($id),
+            'data' => $this->auth->getPermissionsByUser($id),
         ]);
     }
 
@@ -65,10 +65,9 @@ class UsersController extends Controller
             $id = $user->getIsGuest() ? 0 : $user->getId();
         }
         if ($id) {
-            $auth = Yii::$app->getAuthManager();
             $db = Yii::$app->getDb();
-            $ownRoles = $auth->getRolesByUser($id);
-            $ownPermissions = $auth->getPermissionsByUser($id);
+            $ownRoles = $this->auth->getRolesByUser($id);
+            $ownPermissions = $this->auth->getPermissionsByUser($id);
 
             $itemCommand = $db->createCommand('SELECT * FROM {{%auth_item}} WHERE [[type]] = :type');
             $roles = $itemCommand->bindValue(':type', Item::TYPE_ROLE)->queryAll();
@@ -108,8 +107,7 @@ class UsersController extends Controller
             $roleName = isset($rawBody['roleName']) ? $rawBody['roleName'] : null;
             $userId = isset($rawBody['userId']) ? $rawBody['userId'] : null;
 
-            $auth = Yii::$app->getAuthManager();
-            $auth->assign($auth->getRole($roleName), $userId);
+            $this->auth->assign($this->auth->getRole($roleName), $userId);
         } else {
             $success = false;
             $errorMessage = 'Parameters error.';
@@ -140,8 +138,7 @@ class UsersController extends Controller
             $roleName = isset($rawBody['roleName']) ? $rawBody['roleName'] : null;
             $userId = isset($rawBody['userId']) ? $rawBody['userId'] : null;
 
-            $auth = Yii::$app->getAuthManager();
-            $auth->revoke($auth->getRole($roleName), $userId);
+            $this->auth->revoke($this->auth->getRole($roleName), $userId);
         } else {
             $success = false;
             $errorMessage = 'Parameters error.';
