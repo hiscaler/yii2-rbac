@@ -12,7 +12,6 @@ class RbacController extends Controller
     public function beforeAction($action)
     {
         $defaultRoles = Yii::$app->getAuthManager()->defaultRoles;
-        Yii::$app->
         $action = Yii::$app->id . '@' . Inflector::camelize(Yii::$app->controller->id) . Inflector::camelize($action->id);
         if (Yii::$app->getUser()->can($action) || in_array($action, $defaultRoles)) {
             return true;
