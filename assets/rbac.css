@@ -7,6 +7,9 @@ a {
 fieldset, input {
     border: 1px #E9E9E9 solid;
 }
+fieldset {
+    border-radius: 3px;
+}
 input {
     padding: 6px;
     border-radius: 2px;
@@ -170,11 +173,9 @@ input {
 .rbac-grid-view table.table tr.selected td {
     background: #FFFFEF;
 }
-.rbac-grid-view table.table tr.disabled td {
-    background: #F5F5F5;
-    color: #CCC;
-}
-.rbac-grid-view table.table tr.disabled td a {
+.rbac-grid-view table.table tr.disabled td,
+.rbac-grid-view table.table tr.disabled td input,
+.rbac-grid-view table.table tr.disabled td button {
     color: #CCC;
 }
 .rbac-grid-view table.table tr:hover {
@@ -252,9 +253,6 @@ input {
     width: 160px;
     text-align: center;
 }
-.rbac-grid-view table.table td.group-name {
-    width: 100px;
-}
 .rbac-grid-view table.table td.username {
     width: 60px;
     text-align: center;
@@ -279,9 +277,11 @@ input {
     width: 30px;
     text-align: center;
 }
-.rbac-grid-view table.table td.number {
-    width: 60px;
-    text-align: center;
+.rbac-grid-view table.table td.role-name {
+    width: 120px;
+}
+.rbac-grid-view table.table td.permission-name {
+    width: 320px;
 }
 .rbac-grid-view table.table th.actions, .rbac-grid-view table.table td.actions {
     text-align: center;
@@ -293,3 +293,7 @@ input {
 .rbac-grid-view table.table td.btn-3 { width: 60px; _width: 70px; }
 .rbac-grid-view table.table td.btn-4 { width: 80px; _widht: 90px; }
 .rbac-grid-view table.table td.btn-5 { width: 100px; _widht: 110px; }
+
+#rbac-pending-permissions table input {
+    width: 96%;
+}

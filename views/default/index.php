@@ -44,7 +44,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="item in userRoles">
-                            <td>{{ item.name }}</td>
+                            <td class="role-name">{{ item.name }}</td>
                             <td>{{ item.description }}</td>
                             <td>{{ item.rule_name }}</td>
                             <td>{{ item.data }}</td>
@@ -91,7 +91,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in roles" v-bind:class="{'selected': item.name == activeObject.role}">
-                        <td>{{ item.name }}</td>
+                        <td class="role-name">{{ item.name }}</td>
                         <td>{{ item.description }}</td>
                         <td>{{ item.rule_name }}</td>
                         <td>{{ item.data }}</td>
@@ -117,7 +117,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="item in rolePermissions">
-                            <td>{{ item.name }}</td>
+                            <td class="role-name">{{ item.name }}</td>
                             <td>{{ item.description }}</td>
                             <td>{{ item.rule_name }}</td>
                             <td>{{ item.data }}</td>
@@ -167,7 +167,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in permissions">
-                        <td>{{ item.name }}</td>
+                        <td class="permission-name">{{ item.name }}</td>
                         <td>{{ item.description }}</td>
                         <td>{{ item.rule_name }}</td>
                         <td>{{ item.data }}</td>
@@ -191,7 +191,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in pendingPermissions" v-bind:class="{ 'disabled': !item.active, 'enabled': item.active }">
-                        <td>{{ item.name }}</td>
+                        <td class="permission-name">{{ item.name }}</td>
                         <td><input type="text" name="description" :disabled="!item.active" :value="item.description" v-model="item.description"/></td>
                         <td class="btn-1">
                             <button class="button-rbac" :disabled="!item.active" @click="permissionSave(item.name, item.description, $index, $event)"><?= Yii::t('rbac', 'Save') ?></button>
