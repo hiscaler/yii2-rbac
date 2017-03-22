@@ -1,5 +1,15 @@
+body {
+    font-size: 14px;
+}
 a {
     text-decoration: none;
+}
+fieldset, input {
+    border: 1px #E9E9E9 solid;
+}
+input {
+    padding: 6px;
+    border-radius: 2px;
 }
 #rbac-app {}
 .rbac-tabs-common {
@@ -10,14 +20,13 @@ a {
 .rbac-tabs-common li {
     float: left;
     list-style: none outside none;
-    margin: 0 6px;
+    margin: 0 3px;
 }
 .rbac-tabs-common li.active a {
     background: none repeat scroll 0 0 #F5F5F5;
     border-top: #DD4B39 solid 2px;
     border-bottom: 1px solid #F8F8F8;
     color: #4362BF;
-    font-weight: bold;
 }
 .rbac-tabs-common a:hover {
     background: none repeat scroll 0 0 #F5F5F5;
@@ -40,12 +49,46 @@ a {
     text-decoration: none;
 }
 .rbac-tabs-common li.active a {
-    padding: 1px 25px;
+    padding-top: 1px;
 }
 .rbac-tabs-common .badges {
     margin-left: 10px;
 }
-
+/*******************************************************************************
+ * Common
+ ******************************************************************************/
+.button-rbac {
+    border: #E9E9E9 solid 1px;
+    color: #7d8389;
+    background-color: #FFF;
+    border-radius: 3px;
+}
+.wrapper {
+    margin-bottom: 10px;
+}
+/*******************************************************************************
+ * Form
+ ******************************************************************************/
+.form-rbac {}
+.form-rbac div.row {
+    padding: 10px 0;
+    border-bottom: 1px #E9E9E9 solid;
+}
+.form-rbac div.last-row {
+    border-bottom: none;
+}
+.form-rbac div.row label {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+}
+.form-rbac div.row input.rbac-input {
+    width: 300px;
+}
+.form-rbac div.last-row input.button-rbac {
+    margin-left: 110px;
+}
 /*******************************************************************************
  * Grid View
  ******************************************************************************/
@@ -61,10 +104,12 @@ a {
     background: white;
     border-collapse: collapse;
     margin-bottom: 0;
+    border-left: #E9E9E9 solid 1px;
+    border-right: #E9E9E9 solid 1px;
 }
 .rbac-grid-view table.table th, .rbac-grid-view table.table td {
     border-bottom: 1px #E9E9E9 solid;
-    padding: 2px 5px;
+    padding: 6px;
     /* 保持不换行 */
     text-overflow: ellipsis;
     overflow: hidden;
@@ -84,11 +129,11 @@ a {
     background: #F5F5F5 url(images/grid-view-header-bg.gif) no-repeat right center;
     padding: 5px 4px;
     color: #7d8389;
-    text-align: center;
+    text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    font-weight: bold;
+    font-weight: normal;
 }
 .rbac-grid-view table.table th.last {
     background: #F5F5F5;
@@ -108,6 +153,10 @@ a {
 .rbac-grid-view table.table th a.desc {
     background: url(images/down.gif) right center no-repeat;
     padding-right: 10px;
+}
+.rbac-grid-view table.table th.serial-number {
+    text-align: center;
+    width: 30px;
 }
 .rbac-grid-view table.table tr.even {
     background: #FFF;
