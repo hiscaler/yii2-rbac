@@ -14,7 +14,7 @@
         <div id="rbac-users" class="panel">
             <table class="table">
                 <thead>
-                    <tr>
+                    <tr class="clear-border-top">
                         <th class="serial-number">#</th>
                         <th><?= Yii::t('rbac', 'Username') ?></th>
                         <th class="actions last"></th>
@@ -60,7 +60,7 @@
 
         <div id="rbac-roles" class="panel" style="display: none;">
 
-            <fieldset class="wrapper">
+            <fieldset>
                 <legend>
                     <button class="button-rbac" @click="toggleFormVisible('role')">{{ formVisible.role ? '<?= Yii::t('rbac', 'Hide Form') ?>' : '<?= Yii::t('rbac', 'Show Form') ?>' }}</button>
                 </legend>
@@ -79,7 +79,7 @@
                 </div>
             </fieldset>
 
-            <table class="table wrapper">
+            <table class="table">
                 <thead>
                     <tr>
                         <th><?= Yii::t('rbac', 'Role Name') ?></th>
@@ -183,7 +183,7 @@
         <div id="rbac-pending-permissions" class="panel" style="display: none;">
             <table class="table">
                 <thead>
-                    <tr>
+                    <tr class="clear-border-top">
                         <th><?= Yii::t('rbac', 'Action') ?></th>
                         <th><?= Yii::t('rbac', 'Permission Description') ?></th>
                         <th class="actions last"></th>

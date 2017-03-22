@@ -8,7 +8,9 @@ fieldset, input {
     border: 1px #E9E9E9 solid;
 }
 fieldset {
-    border-radius: 3px;
+    border: none;
+    border-top: 1px #E9E9E9 solid;
+    margin-top: 10px;
 }
 input {
     padding: 6px;
@@ -16,9 +18,8 @@ input {
 }
 #rbac-app {}
 .rbac-tabs-common {
-    border-bottom: 1px solid #E9E9E9;
     height: 25px;
-    margin: 0 0 10px;
+    margin: 0;
 }
 .rbac-tabs-common li {
     float: left;
@@ -57,6 +58,10 @@ input {
 .rbac-tabs-common .badges {
     margin-left: 10px;
 }
+#rbac-panels {
+    border: #E9E9E9 solid 1px;
+    border-radius: 6px;
+}
 /*******************************************************************************
  * Common
  ******************************************************************************/
@@ -91,6 +96,9 @@ input {
 }
 .form-rbac div.last-row input.button-rbac {
     margin-left: 110px;
+    padding: 3px 14px;
+    background-color: #F5F5F5;
+    color: #4362BF;
 }
 /*******************************************************************************
  * Grid View
@@ -107,8 +115,6 @@ input {
     background: white;
     border-collapse: collapse;
     margin-bottom: 0;
-    border-left: #E9E9E9 solid 1px;
-    border-right: #E9E9E9 solid 1px;
 }
 .rbac-grid-view table.table th, .rbac-grid-view table.table td {
     border-bottom: 1px #E9E9E9 solid;
@@ -118,6 +124,9 @@ input {
     overflow: hidden;
     word-break: keep-all; /* for ie */
     white-space: nowrap; /* for chrome */
+}
+.rbac-grid-view table.table th {
+    padding-left: 10px!important;
 }
 .rbac-grid-view table.table th.nowrap, .rbac-grid-view table.table td.nowrap {
     text-overflow: ellipsis;
@@ -137,6 +146,9 @@ input {
     overflow: hidden;
     white-space: nowrap;
     font-weight: normal;
+}
+.rbac-grid-view table.table tr.clear-border-top th {
+    border-top: none;
 }
 .rbac-grid-view table.table th.last {
     background: #F5F5F5;
@@ -159,6 +171,7 @@ input {
 }
 .rbac-grid-view table.table th.serial-number {
     text-align: center;
+    padding: 0!important;
     width: 30px;
 }
 .rbac-grid-view table.table tr.even {
