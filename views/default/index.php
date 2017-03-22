@@ -1,11 +1,11 @@
 <div id="rbac-app">
     <div class="rbac-tabs-common">
         <ul>
-            <li class="active"><a data-toggle="rbac-users" href="<?= \yii\helpers\Url::toRoute('users') ?>">Users</a></li>
-            <li><a data-toggle="rbac-roles" href="<?= \yii\helpers\Url::toRoute('roles') ?>">Roles</a></li>
-            <li><a data-toggle="rbac-permissions" href="<?= \yii\helpers\Url::toRoute('permissions') ?>">Permissions</a>
+            <li class="active"><a data-toggle="rbac-users" href="<?= \yii\helpers\Url::toRoute('users') ?>"><?= Yii::t('rbac', 'Users') ?></a></li>
+            <li><a data-toggle="rbac-roles" href="<?= \yii\helpers\Url::toRoute('roles') ?>"><?= Yii::t('rbac', 'Roles') ?></a></li>
+            <li><a data-toggle="rbac-permissions" href="<?= \yii\helpers\Url::toRoute('permissions') ?>"><?= Yii::t('rbac', 'Permissions') ?></a>
             </li>
-            <li><a data-toggle="rbac-pending-permissions" href="<?= \yii\helpers\Url::toRoute('default/scan') ?>">Scan Permissions</a></li>
+            <li><a data-toggle="rbac-pending-permissions" href="<?= \yii\helpers\Url::toRoute('default/scan') ?>"><?= Yii::t('rbac', 'Permissions Scan') ?></a></li>
         </ul>
     </div>
 
@@ -16,7 +16,7 @@
                 <thead>
                     <tr>
                         <th class="serial-number">#</th>
-                        <th>姓名</th>
+                        <th><?= Yii::t('rbac', 'Username') ?></th>
                         <th class="actions last"></th>
                     </tr>
                 </thead>
@@ -35,10 +35,10 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>角色</th>
-                            <th>描述</th>
-                            <th>规则</th>
-                            <th>数据</th>
+                            <th><?= Yii::t('rbac', 'Role Name') ?></th>
+                            <th><?= Yii::t('rbac', 'Description') ?></th>
+                            <th><?= Yii::t('rbac', 'Rule Name') ?></th>
+                            <th><?= Yii::t('rbac', 'Role Data') ?></th>
                             <th class="actions last"></th>
                         </tr>
                     </thead>
@@ -62,31 +62,30 @@
 
             <fieldset class="wrapper">
                 <legend>
-                    <button class="button-rbac" @click="toggleFormVisible('role')">{{ formVisible.role ? 'Hide Form' : 'Show Form' }}</button>
+                    <button class="button-rbac" @click="toggleFormVisible('role')">{{ formVisible.role ? '<?= Yii::t('rbac', 'Hide Form') ?>' : '<?= Yii::t('rbac', 'Show Form') ?>' }}</button>
                 </legend>
                 <div class="form-rbac" id="rbac-role-form" v-show="formVisible.role">
                     <form action="<?= \yii\helpers\Url::toRoute(['roles/create']) ?>">
                         <div class="row">
-                            <label>Name:</label><input type="text" class="rbac-input" id="name" name="name" value="" placeholder="Role name"/>
+                            <label><?= Yii::t('rbac', 'Role Name') ?>:</label><input type="text" class="rbac-input" id="name" name="name" value=""/>
                         </div>
                         <div class="row">
-                            <label>Description:</label><input type="text" class="rbac-input" id="description" name="description" value="" placeholder="Description"/>
+                            <label><?= Yii::t('rbac', 'Description') ?>:</label><input type="text" class="rbac-input" id="description" name="description" value="" />
                         </div>
                         <div class="row last-row">
-                            <input class="button-rbac" id="rbac-sumbit-role" type="submit" value="Save"/>
+                            <input class="button-rbac" id="rbac-sumbit-role" type="submit" value="<?= Yii::t('rbac', 'Save') ?>"/>
                         </div>
                     </form>
                 </div>
             </fieldset>
 
-
             <table class="table wrapper">
                 <thead>
                     <tr>
-                        <th>角色</th>
-                        <th>描述</th>
-                        <th>规则</th>
-                        <th>数据</th>
+                        <th><?= Yii::t('rbac', 'Role Name') ?></th>
+                        <th><?= Yii::t('rbac', 'Description') ?></th>
+                        <th><?= Yii::t('rbac', 'Rule Name') ?></th>
+                        <th><?= Yii::t('rbac', 'Role Data') ?></th>
                         <th class="actions last"></th>
                     </tr>
                 </thead>
@@ -109,10 +108,10 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>权限</th>
-                            <th>描述</th>
-                            <th>规则</th>
-                            <th>数据</th>
+                            <th><?= Yii::t('rbac', 'Role Name') ?></th>
+                            <th><?= Yii::t('rbac', 'Description') ?></th>
+                            <th><?= Yii::t('rbac', 'Rule Name') ?></th>
+                            <th><?= Yii::t('rbac', 'Role Data') ?></th>
                             <th class="actions last"></th>
                         </tr>
                     </thead>
@@ -138,19 +137,19 @@
 
             <fieldset class="wrapper">
                 <legend>
-                    <button class="button-rbac" @click="toggleFormVisible('permission')">{{ formVisible.permission ? 'Hide Form' : 'Show Form' }}</button>
+                    <button class="button-rbac" @click="toggleFormVisible('permission')">{{ formVisible.permission ? '<?= Yii::t('rbac', 'Hide Form') ?>' : '<?= Yii::t('rbac', 'Show Form') ?>' }}</button>
                 </legend>
 
                 <div id="rbac-persmission-form" v-show="formVisible.permission">
                     <form class="form-rbac" action="<?= \yii\helpers\Url::toRoute(['permission/create']) ?>">
                         <div class="row">
-                            <label>Name:</label><input type="text" class="rbac-input" id="name" name="name" value="" placeholder="Permission name"/>
+                            <label><?= Yii::t('rbac', 'Permission Name') ?>:</label><input type="text" class="rbac-input" id="name" name="name" value=""/>
                         </div>
                         <div class="row">
-                            <label>Description:</label><input type="text" class="rbac-input" id="description" name="description" value="" placeholder="Description"/>
+                            <label><?= Yii::t('rbac', 'Permission Description') ?>:</label><input type="text" class="rbac-input" id="description" name="description" value="" />
                         </div>
                         <div class="row last-row">
-                            <input class="button-rbac" id="rbac-sumbit-permission" type="submit" value="Save"/>
+                            <input class="button-rbac" id="rbac-sumbit-permission" type="submit" value="<?= Yii::t('rbac', 'Save') ?>"/>
                         </div>
                     </form>
                 </div>
@@ -159,10 +158,10 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>权限</th>
-                        <th>描述</th>
-                        <th>规则</th>
-                        <th>数据</th>
+                        <th><?= Yii::t('rbac', 'Permission Name') ?></th>
+                        <th><?= Yii::t('rbac', 'Permission Description') ?></th>
+                        <th><?= Yii::t('rbac', 'Rule Name') ?></th>
+                        <th><?= Yii::t('rbac', 'Permission Data') ?></th>
                         <th class="actions last"></th>
                     </tr>
                 </thead>
@@ -185,17 +184,17 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>action</th>
-                        <th>description</th>
+                        <th><?= Yii::t('rbac', 'Action') ?></th>
+                        <th><?= Yii::t('rbac', 'Permission Description') ?></th>
                         <th class="actions last"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="item in pendingPermissions" v-bind:class="{ 'disabled': !item.active, 'enabled': item.active }">
                         <td>{{ item.name }}</td>
-                        <td><input type="text" name="description" :disabled="!item.active" :value="item.description" placeholder="请填写该权限的描述内容" v-model="item.description"/></td>
+                        <td><input type="text" name="description" :disabled="!item.active" :value="item.description" v-model="item.description"/></td>
                         <td class="btn-1">
-                            <button class="button-rbac" :disabled="!item.active" @click="permissionSave(item.name, item.description, $index, $event)">Save</button>
+                            <button class="button-rbac" :disabled="!item.active" @click="permissionSave(item.name, item.description, $index, $event)"><?= Yii::t('rbac', 'Save') ?></button>
                         </td>
                     </tr>
                 </tbody>
