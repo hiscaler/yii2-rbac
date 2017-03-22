@@ -12,6 +12,7 @@ return [
     'Description' => '描述',
     'Rule Name' => '规则',
     'Role Data' => '规则数据',
+    'Remove Children' => '移除所有权限',
     // permissions
     'Permission Name' => '权限名称',
     'Permission Description' => '权限描述',

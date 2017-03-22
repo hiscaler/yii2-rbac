@@ -97,8 +97,8 @@
                         <td>{{ item.data }}</td>
                         <td class="btn-3">
                             <button class="button-rbac" data-confirm="删除该角色？" v-on:click="roleDelete(item.name, $index, $event)">X</button>
-                            <button class="button-rbac" data-confirm="删除该角色关联的所有权限？" v-on:click="roleRemoveChildren(item.name)">Remove Children</button>
-                            <button class="button-rbac" v-on:click="permissionsByRole(item.name, $index)">Permissions</button>
+                            <button class="button-rbac" data-confirm="删除该角色关联的所有权限？" v-on:click="roleRemoveChildren(item.name)"><?= Yii::t('rbac', 'Remove Children') ?></button>
+                            <button class="button-rbac" v-on:click="permissionsByRole(item.name, $index)"><?= Yii::t('rbac', 'Permissions') ?></button>
                         </td>
                     </tr>
                 </tbody>
