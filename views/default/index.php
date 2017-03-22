@@ -25,7 +25,7 @@
                         <td class="serial-number">{{ item.id }}</td>
                         <td>{{ item.username }}</td>
                         <td class="btn-1">
-                            <button class="button-rbac" v-on:click="userRolesByUserId(item.id)"><?= Yii::t('rbac', 'Roles') ?></button>
+                            <button class="button-rbac" v-on:click="userRolesByUserId(item.id, $index)"><?= Yii::t('rbac', 'Roles') ?></button>
                         </td>
                     </tr>
                 </tbody>

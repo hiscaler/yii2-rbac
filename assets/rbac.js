@@ -1,7 +1,8 @@
 var yadjet = yadjet || {};
 yadjet.utils = yadjet.utils || {
     clone: function (myObj) {
-        if (typeof(myObj) != 'object' || myObj == null) return myObj;
+        if (typeof (myObj) != 'object' || myObj == null)
+            return myObj;
         var newObj = new Object();
         for (var i in myObj) {
             newObj[i] = clone(myObj[i]);
@@ -27,7 +28,8 @@ function isEmptyObject(e) {
  * @returns {*}
  */
 function clone(myObj) {
-    if (typeof(myObj) != 'object' || myObj == null) return myObj;
+    if (typeof (myObj) != 'object' || myObj == null)
+        return myObj;
     var newObj = new Object();
     for (var i in myObj) {
         newObj[i] = clone(myObj[i]);
@@ -39,34 +41,34 @@ function clone(myObj) {
 yadjet.rbac = yadjet.rbac || {};
 yadjet.rbac.debug = yadjet.rbac.debug || true;
 yadjet.rbac.urls = yadjet.rbac.urls || {
-        assign: undefined,
-        revoke: undefined,
-        users: {
-            list: undefined
-        },
-        user: {
-            roles: undefined,
-            permissions: undefined
-        },
-        roles: {
-            list: undefined, // 角色列表
-            create: undefined, // 添加角色
-            read: undefined, // 查看角色
-            update: undefined, // 更新角色
-            'delete': undefined, // 删除角色
-            permissions: undefined, // 角色对应的权限
-            addChild: undefined, // 角色关联权限操作
-            removeChild: undefined, // 删除角色中的某个关联权限
-            removeChildren: undefined, // 删除角色关联的所有权限
-        },
-        permissions: {
-            create: undefined,
-            read: undefined,
-            update: undefined,
-            'delete': undefined,
-            scan: undefined
-        }
-    };
+    assign: undefined,
+    revoke: undefined,
+    users: {
+        list: undefined
+    },
+    user: {
+        roles: undefined,
+        permissions: undefined
+    },
+    roles: {
+        list: undefined, // 角色列表
+        create: undefined, // 添加角色
+        read: undefined, // 查看角色
+        update: undefined, // 更新角色
+        'delete': undefined, // 删除角色
+        permissions: undefined, // 角色对应的权限
+        addChild: undefined, // 角色关联权限操作
+        removeChild: undefined, // 删除角色中的某个关联权限
+        removeChildren: undefined, // 删除角色关联的所有权限
+    },
+    permissions: {
+        create: undefined,
+        read: undefined,
+        update: undefined,
+        'delete': undefined,
+        scan: undefined
+    }
+};
 
 var vm = new Vue({
     el: '#rbac-app',
@@ -98,10 +100,17 @@ var vm = new Vue({
                 return !1;
             return !0
         },
-        userRolesByUserId: function (userId) {
+        userRolesByUserId: function (userId, index) {
             Vue.http.get(yadjet.rbac.urls.user.roles.replace('_id', userId)).then((res) => {
                 this.user.roles = res.data;
                 this.activeObject.userId = userId;
+                var $tr = $('#rbac-users > table tr:eq(' + (index + 1) + ')');
+                var offset = $tr.offset();
+                $('#rbac-pop-window').css({
+                    position: 'absolute',
+                    left: offset.left + 40,
+                    top: offset.top + $tr.find('td').outerHeight()
+                });
             });
         },
         // 给用户授权
@@ -113,7 +122,7 @@ var vm = new Vue({
         },
         // 撤销用户授权
         revoke: function (roleName, index) {
-            Vue.http.post(yadjet.rbac.urls.revoke, { roleName: roleName, userId: vm.activeObject.userId }).then((res) => {
+            Vue.http.post(yadjet.rbac.urls.revoke, {roleName: roleName, userId: vm.activeObject.userId}).then((res) => {
                 for (var i in this.user.roles) {
                     console.info(this.user.roles[i].name);
                     if (this.user.roles[i].name === roleName) {
