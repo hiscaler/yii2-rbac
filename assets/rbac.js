@@ -65,7 +65,7 @@ yadjet.rbac.urls = yadjet.rbac.urls || {
             update: undefined,
             'delete': undefined,
             scan: undefined
-        },
+        }
     };
 
 var vm = new Vue({
