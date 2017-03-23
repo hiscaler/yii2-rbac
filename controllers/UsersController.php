@@ -15,11 +15,46 @@ class UsersController extends Controller
      */
     public function actionIndex()
     {
-        $items = $this->auth->db->createCommand('SELECT * FROM {{%user}}')->queryAll();
+        $userTable = $this->getModuleOptions()['userTable'];
+        $rawColumns = $userTable['columns'];
+
+        $columns = [
+            $rawColumns['id'],
+            $rawColumns['username'],
+        ];
+
+        $extras = [];
+        foreach ($rawColumns['extra'] as $name => $text) {
+            $columns[] = $name;
+            $extras[$name] = $text ?: $name;
+        }
+
+        $items = (new \yii\db\Query())
+            ->select($columns)
+            ->from($userTable['name'])
+            ->where(is_array($userTable['where']) ? $userTable['where'] : [])
+            ->all($this->auth->db);
+        if ($rawColumns['id'] != 'id' || $rawColumns['username'] != 'username') {
+            foreach ($items as $key => $item) {
+                $t = $item;
+                if ($rawColumns['id'] != 'id') {
+                    $t['id'] = $item[$rawColumns['id']];
+                    unset($t[$rawColumns['id']]);
+                }
+                if ($rawColumns['username'] != 'username') {
+                    $t['username'] = $item[$rawColumns['username']];
+                    unset($t[$rawColumns['username']]);
+                }
+                $items[$key] = $t;
+            }
+        }
 
         return new Response([
             'format' => Response::FORMAT_JSON,
-            'data' => $items,
+            'data' => [
+                'items' => $items,
+                'extras' => $extras,
+            ],
         ]);
     }
 

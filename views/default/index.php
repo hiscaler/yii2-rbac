@@ -17,13 +17,15 @@
                     <tr class="clear-border-top">
                         <th class="serial-number">#</th>
                         <th><?= Yii::t('rbac', 'Username') ?></th>
+                        <th v-for="(key, value) in users.extras">{{ value }}</th>
                         <th class="actions last"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in users" v-bind:class="{'selected': item.id == activeObject.userId}">
+                    <tr v-for="item in users.items" v-bind:class="{'selected': item.id == activeObject.userId}">
                         <td class="serial-number">{{ item.id }}</td>
                         <td>{{ item.username }}</td>
+                        <td v-for="(key, value) in users.extras">{{ item[key] }}</td>
                         <td class="btn-1">
                             <button class="button-rbac" v-on:click="userRolesByUserId(item.id, $index)"><?= Yii::t('rbac', 'Roles') ?></button>
                         </td>

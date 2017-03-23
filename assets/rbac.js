@@ -77,7 +77,10 @@ var vm = new Vue({
             userId: 0,
             role: undefined
         },
-        users: {},
+        users: {
+            items: {},
+            extras: {}
+        },
         user: {
             roles: {},
             permissions: {}

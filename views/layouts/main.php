@@ -59,13 +59,18 @@ $asset = RbacAsset::register($this);
                    scan: '<?= Url::toRoute(['default/scan']) ?>'
                 }
             };
-            Vue.http.get(yadjet.rbac.urls.auths).then((res) => {
-                vm.ownAuth.userId = res.data.userId;
-                vm.ownAuth.roles = res.data.roles;
-                vm.ownAuth.permissions = res.data.permissions;
-            });
+//            Vue.http.get(yadjet.rbac.urls.auths).then((res) => {
+//            console.info(res.data);
+//                if (res.data) {
+//                vm.ownAuth.userId = res.data.userId;
+//                vm.ownAuth.roles = res.data.roles;
+//                vm.ownAuth.permissions = res.data.permissions;
+//                }
+//            });
+            // 获取用户数据
             Vue.http.get(yadjet.rbac.urls.users.list).then((res) => {
-                vm.users = res.data;
+                vm.users.items = res.data.items;
+                vm.users.extras = res.data.extras;
             });
             Vue.http.get(yadjet.rbac.urls.roles.list).then((res) => {
                 vm.roles = res.data;

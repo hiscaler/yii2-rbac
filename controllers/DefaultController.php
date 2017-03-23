@@ -11,8 +11,11 @@ use yii\web\Response;
 class DefaultController extends \yii\web\Controller
 {
 
+    use \yadjet\rbac\helpers\ModuleHelper;
+
     public $layout = 'main';
-   /** @var \yii\rbac\DbManager $auth */
+
+    /** @var \yii\rbac\DbManager $auth */
     protected $auth;
 
     public function init()
@@ -72,9 +75,7 @@ class DefaultController extends \yii\web\Controller
 
     public function actionScan()
     {
-        $configs = [
-            'disableScanModules' => ['gii', 'rbac', 'debug'], // 禁止扫描的模块
-        ];
+        $options = $this->getModuleOptions();
         $appId = Yii::$app->id;
         $actions = $files = [];
         $paths = [
@@ -83,7 +84,7 @@ class DefaultController extends \yii\web\Controller
 
         foreach (Yii::$app->getModules() as $key => $config) {
             $moduleId = Yii::$app->getModule($key)->getUniqueId();
-            if (empty($moduleId) || in_array($moduleId, $configs['disableScanModules'])) {
+            if (empty($moduleId) || in_array($moduleId, $options['disabledScanModules'])) {
                 continue;
             }
             $paths["{$appId}@{$moduleId}@"] = Yii::$app->getModule($moduleId)->getControllerPath();

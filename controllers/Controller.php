@@ -7,6 +7,8 @@ use yii\base\Exception;
 class Controller extends \yii\rest\Controller
 {
 
+    use \yadjet\rbac\helpers\ModuleHelper;
+
     /** @var \yii\rbac\DbManager $auth */
     protected $auth;
 

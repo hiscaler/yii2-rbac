@@ -29,6 +29,15 @@ class RolesController extends Controller
     public function actionIndex()
     {
         $items = array_values($this->auth->getRoles());
+        if ($this->getModuleOptions()['selfish']) {
+            $appId = Yii::$app->id;
+            $len = strlen($appId);
+            foreach ($items as $key => $item) {
+                if (strncmp($appId, $key, $len) !== 0) {
+                    unset($items[$key]);
+                }
+            }
+        }
 
         return new Response([
             'format' => Response::FORMAT_JSON,
@@ -47,9 +56,8 @@ class RolesController extends Controller
                 $success = false;
                 $errorMessage = '名称不能为空。';
             } else {
-                $description = trim($request->post('description'));
-                $role = $this->auth->createRole($name);
-                $role->description = $description;
+                $role = $this->auth->createRole(Yii::$app->id . '@' . $name);
+                $role->description = trim($request->post('description'));
                 $this->auth->add($role);
             }
 

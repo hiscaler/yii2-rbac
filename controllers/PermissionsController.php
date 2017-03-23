@@ -11,11 +11,21 @@ class PermissionsController extends Controller
 
     /**
      * 返回定义的所有权限
+     *
      * @return Response
      */
     public function actionIndex()
     {
         $items = $this->auth->getPermissions();
+        if ($this->getModuleOptions()['selfish']) {
+            $appId = Yii::$app->id;
+            $len = strlen($appId);
+            foreach ($items as $key => $item) {
+                if (strncmp($appId, $key, $len) !== 0) {
+                    unset($items[$key]);
+                }
+            }
+        }
 
         return new Response([
             'format' => Response::FORMAT_JSON,
@@ -25,6 +35,7 @@ class PermissionsController extends Controller
 
     /**
      * 添加权限
+     *
      * @return Response
      */
     public function actionCreate()
@@ -47,7 +58,7 @@ class PermissionsController extends Controller
                 $success = false;
                 $errorMessage = '名称不能为空。';
             } else {
-                $permission = $this->auth->createPermission($name);
+                $permission = $this->auth->createPermission(Yii::$app->id . '@' . $name);
                 $permission->description = $description;
                 $this->auth->add($permission);
             }
@@ -71,6 +82,7 @@ class PermissionsController extends Controller
 
     /**
      * 删除权限
+     *
      * @param string $name
      * @return Response
      */

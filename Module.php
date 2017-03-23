@@ -10,6 +10,13 @@ class Module extends \yii\base\Module implements BootstrapInterface
 {
 
     /**
+     * 模块配置项
+     *
+     * @var array
+     */
+    public $options;
+
+    /**
      * @inheritdoc
      */
     public $controllerNamespace = 'yadjet\rbac\controllers';
