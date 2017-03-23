@@ -29,11 +29,12 @@ class RolesController extends Controller
     public function actionIndex()
     {
         $items = array_values($this->auth->getRoles());
+
         if ($this->getModuleOptions()['selfish']) {
             $appId = Yii::$app->id;
             $len = strlen($appId);
             foreach ($items as $key => $item) {
-                if (strncmp($appId, $key, $len) !== 0) {
+                if (strncmp($item->name, $appId, $len) !== 0) {
                     unset($items[$key]);
                 }
             }
